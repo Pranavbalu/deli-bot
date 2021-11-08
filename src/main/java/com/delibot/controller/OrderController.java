@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +31,7 @@ public class OrderController {
     private DeliveryExecutiveService deliveryExecutiveService;
 
     @PostMapping("/changeDeliveryStatus")
-    public
+    public @ResponseBody
     String changeDeliveryStatus(@RequestParam String orderIds) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userName = auth.getName();
