@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Delibot</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/home">DeliBot</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+        <form th:action="@{/logout}" method="post" class="d-flex">
+            <input type="submit" value="Sign Out" />
+        </form>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul style="position: absolute;right: 1%;" class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Welcome <b>[[${#request.userPrincipal != null ? #request.userPrincipal.principal.fullName : ''}]]</b>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">DeliBot</h1>
+            <p class="lead fw-normal text-white-50 mb-0">For All your shopping needs</p>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+            <div class="col mb-5" th:each="store: ${listStores}">
+                <div class="card h-100">
+                    <!-- Store image-->
+                    <img class="card-img-top" th:src="${store.imageLocation}" alt="" />
+                    <!-- Store details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Store name-->
+                            <h5 class="fw-bolder" th:text="${store.storeName}"></h5>
+                            <!-- Product reviews-->
+                            <div class="d-flex justify-content-center small text-warning mb-2">
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                                <div class="bi-star-fill"></div>
+                            </div>
+                            <!-- Store location-->
+                            <span th:text="${store.location}"></span>
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/listItems(storeId=${store.id})}">Visit</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+<script src="/js/scripts.js"></script>
+</body>
+
+</html>

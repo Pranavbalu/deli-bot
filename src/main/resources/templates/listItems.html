@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Delibot</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="/css/styles.css" rel="stylesheet" />
+
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/home">DeliBot</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent1">
+
+        <form th:action="@{/logout}" method="post" class="d-flex">
+            <input type="submit" value="Sign Out" />
+        </form>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul style="position: absolute;right: 1%;" class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!-- Header-->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">DeliBot</h1>
+            <p class="lead fw-normal text-white-50 mb-0">For All your shopping needs</p>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+<h3>Items available</h3>
+<section class="py-5">
+
+
+    <div>
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+            <tr>
+                <th>Sl NO.</th>
+                <th>Item name</th>
+                <th>Price</th>
+                <th>Select</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item,i : ${itemsList}">
+                <td th:text="${i.count}"></td>
+                <td th:text="${item.itemName}"></td>
+                <td th:text="${item.itemPrice}"></td>
+                <td> <input type="checkbox" name="itemIds" th:value="${item.id}"/> </td>
+            </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-primary" onclick="buyItems()" style="float: right;margin-right: 5%;">Buy</button>
+    </div>
+</section>
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+<script src="/js/scripts.js"></script>
+</body>
+
+</html>
